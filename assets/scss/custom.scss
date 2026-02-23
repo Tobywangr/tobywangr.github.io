@@ -30,26 +30,3 @@
     &.danger { border-left-color: #ff5252; background-color: rgba(255,82,82,0.05); .admonition-title { color: #ff5252; } }
 }
 
-/* 兼容 theme/module 可能生成的 alert 结构（例如 blockquote.alert.alert-danger） */
-blockquote.alert {
-    margin: 1.5rem 0;
-    padding: 0.6rem 1rem;
-    border-left: 0.4rem solid;
-    border-radius: 0.2rem;
-    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.05);
-    background-color: var(--card-background);
-
-    .alert-header {
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-    }
-
-    .alert-title { margin-left: 0.4rem; }
-
-    &.alert-info { border-left-color: #00b0ff; background-color: rgba(0,176,255,0.05); .alert-header { color: #00b0ff; } }
-    &.alert-warning { border-left-color: #ff9100; background-color: rgba(255,145,0,0.05); .alert-header { color: #ff9100; } }
-    &.alert-danger { border-left-color: #ff5252; background-color: rgba(255,82,82,0.05); .alert-header { color: #ff5252; } }
-}

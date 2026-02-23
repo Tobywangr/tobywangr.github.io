@@ -1,45 +1,16 @@
-
-{{/*
-	render-blockquote.html
-	支持在 blockquote 首行使用 [!TYPE] 可产生 admonition
-	示例 Markdown:
-	> [!INFO] 标题
-	> 内容...
-*/}}
-{{- $ctx := . -}}
-{{- $inner := $ctx.Inner -}}
-
-{{ if in $inner "[!" }}
-	{{/* 提取首个 <p>...</p> 的内容作为可能的标记行 */}}
-	{{ $firstLine := replaceRE "(?s)^\\s*<p>(.*?)</p>[\\s\\S]*$" "$1" $inner }}
-
-	{{ $type := replaceRE "(?s)^\\s*\\[!([A-Za-z0-9_-]+)\\].*$" "$1" $firstLine }}
-	{{ $title := replaceRE "(?s)^\\s*\\[![A-Za-z0-9_-]+\\]\\s*(.*)$" "$1" $firstLine }}
-	{{ $typeLower := lower $type }}
-
-	{{ if ne $type "" }}
-		<div class="admonition {{ $typeLower }}">
-			{{ if and (ne $title "") (ne $title $firstLine) }}
-				<div class="admonition-title">{{ $title | safeHTML }}</div>
-			{{ end }}
-			<div class="admonition-content">
-				{{/* 去掉包含标记的首段，剩余作为内容 */}}
-				{{ $rest := replaceRE "(?s)^\\s*<p>.*?</p>\\s*(.*)$" "$1" $inner }}
-
-				{{ if eq $rest "" }}
-					{{/* 如果首段就是全部内容，则把标记移除并渲染剩下的文本（首段内可能包含标题后的正文） */}}
-					{{ $content := replaceRE "(?s)^\\s*<p>\\s*\\[![A-Za-z0-9_-]+\\]\\s*(.*)</p>\\s*$" "<p>$1</p>" $inner }}
-					{{ $content | safeHTML }}
-				{{ else }}
-					{{ $rest | safeHTML }}
-				{{ end }}
-			</div>
-		</div>
-	{{ else }}
-		{{/* 未识别为 admonition，回退到默认渲染 */}}
-		{{ $inner }}
-	{{ end }}
-{{ else }}
-	{{/* 普通 blockquote */}}
-	{{ $inner }}
-{{ end }}
+{{- if eq .Type "alert" -}}
+    {{- /* 这里的 .AlertType 就是 info, danger, warning 等 */ -}}
+    <div class="admonition {{ .AlertType | lower }}">
+        <p class="admonition-title">
+            {{- with .AlertTitle }}{{ . }}{{ else }}{{ .AlertType | upper }}{{ end -}}
+        </p>
+        <div class="admonition-content">
+            {{ .Text }}
+        </div>
+    </div>
+{{- else -}}
+    {{- /* 普通引用块 */ -}}
+    <blockquote {{ with .Attributes.id }}id="{{ . }}"{{ end }}>
+        {{ .Text }}
+    </blockquote>
+{{- end -}}
