@@ -1,16 +1,22 @@
 {{- if eq .Type "alert" -}}
-    {{- /* 这里的 .AlertType 就是 info, danger, warning 等 */ -}}
-    <div class="admonition {{ .AlertType | lower }}">
-        <p class="admonition-title">
-            {{- with .AlertTitle }}{{ . }}{{ else }}{{ .AlertType | upper }}{{ end -}}
-        </p>
-        <div class="admonition-content">
-            {{ .Text }}
+    {{- $type := .AlertType | lower -}}
+    {{- $title := .AlertTitle | default (.AlertType | upper) -}}
+    {{- $isCollapsible := or (strings.Contains $title "[+]") (strings.Contains $title "[-]") -}}
+    {{- $isOpen := strings.Contains $title "[+]" -}}
+    {{- $cleanTitle := replace (replace $title "[+]" "") "[-]" "" -}}
+
+    {{- if $isCollapsible -}}
+        <details class="admonition {{ $type }}" {{ if $isOpen }}open{{ end }}>
+            <summary class="admonition-title">{{ $cleanTitle }}</summary>
+            <div class="admonition-content">{{ .Text }}</div>
+        </details>
+    {{- else -}}
+        <div class="admonition {{ $type }}">
+            {{/* 将 p 换成 div，并统一类名以方便 CSS 控制 */}}
+            <div class="admonition-title">{{ $cleanTitle }}</div>
+            <div class="admonition-content">{{ .Text }}</div>
         </div>
-    </div>
+    {{- end -}}
 {{- else -}}
-    {{- /* 普通引用块 */ -}}
-    <blockquote {{ with .Attributes.id }}id="{{ . }}"{{ end }}>
-        {{ .Text }}
-    </blockquote>
+    <blockquote {{ with .Attributes.id }}id="{{ . }}"{{ end }}>{{ .Text }}</blockquote>
 {{- end -}}

@@ -5,11 +5,12 @@
 /* Admonition */
 .admonition {
     margin: 1.5rem 0;
-    padding: 0.6rem 1rem;
+    padding: 0.1rem ;
     border-left: 0.4rem solid;
     border-radius: 0.2rem;
     box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.05);
-    background-color: var(--card-background); /* 适配 Stack 主题暗黑模式 */
+    background-color: var(--card-background);
+    overflow: hidden;
 
     .admonition-title {
         font-weight: bold;
