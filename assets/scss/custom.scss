@@ -20,13 +20,83 @@
         
         &::before {
             margin-right: 0.5rem;
-            font-family: "Font Awesome 5 Free"; /* 如果你装了图标库的话 */
+            /* 优先用 emoji 作为图标，若有图标库可覆盖 font-family */
+            font-family: "Font Awesome 5 Free", "Noto Color Emoji", "Apple Color Emoji", sans-serif;
+            display: inline-block;
+            width: 1.2em;
+            text-align: center;
         }
     }
 
-    /* 不同类型的颜色定义 */
-    &.info { border-left-color: #00b0ff; background-color: rgba(0,176,255,0.05); .admonition-title { color: #00b0ff; } }
-    &.warning { border-left-color: #ff9100; background-color: rgba(255,145,0,0.05); .admonition-title { color: #ff9100; } }
-    &.danger { border-left-color: #ff5252; background-color: rgba(255,82,82,0.05); .admonition-title { color: #ff5252; } }
+    /* 不同类型的颜色与图标定义（增加 tip, todo, success, note 等） */
+    &.info {
+        border-left-color: #00b0ff;
+        background-color: rgba(0,176,255,0.05);
+        .admonition-title { color: #00b0ff; }
+        .admonition-title::before { content: "ℹ️"; }
+    }
+
+    &.warning {
+        border-left-color: #ff9100;
+        background-color: rgba(255,145,0,0.05);
+        .admonition-title { color: #ff9100; }
+        .admonition-title::before { content: "⚠️"; }
+    }
+
+    &.danger {
+        border-left-color: #ff5252;
+        background-color: rgba(255,82,82,0.05);
+        .admonition-title { color: #ff5252; }
+        .admonition-title::before { content: "⛔"; }
+    }
+
+    &.tip {
+        border-left-color: #0f9d58;
+        background-color: rgba(15,157,88,0.05);
+        .admonition-title { color: #0f9d58; }
+        .admonition-title::before { content: "💡"; }
+    }
+
+    &.success {
+        border-left-color: #2e7d32;
+        background-color: rgba(46,125,50,0.05);
+        .admonition-title { color: #2e7d32; }
+        .admonition-title::before { content: "✅"; }
+    }
+
+    &.note {
+        border-left-color: #607d8b;
+        background-color: rgba(96,125,139,0.04);
+        .admonition-title { color: #607d8b; }
+        .admonition-title::before { content: "📝"; }
+    }
+
+    &.todo {
+        border-left-color: #795548;
+        background-color: rgba(121,85,72,0.04);
+        .admonition-title { color: #795548; }
+        .admonition-title::before { content: "🗒️"; }
+    }
+
+    &.example {
+        border-left-color: #3f51b5;
+        background-color: rgba(63,81,181,0.04);
+        .admonition-title { color: #3f51b5; }
+        .admonition-title::before { content: "📌"; }
+    }
+
+    &.question {
+        border-left-color: #673ab7;
+        background-color: rgba(103,58,183,0.04);
+        .admonition-title { color: #673ab7; }
+        .admonition-title::before { content: "❓"; }
+    }
+
+    &.important {
+        border-left-color: #c62828;
+        background-color: rgba(198,40,40,0.06);
+        .admonition-title { color: #c62828; }
+        .admonition-title::before { content: "‼️"; }
+    }
 }
 
