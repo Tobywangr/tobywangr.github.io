@@ -5,9 +5,9 @@ slug: hello-world
 date: 2026-02-24 10:07:00+0800
 image: cover.jpg
 categories:
-    - Example Category
+    - Hello World
 tags:
-    - Example Tag
+    - Hello World
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
