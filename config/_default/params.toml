@@ -18,8 +18,8 @@ SortBy              = "default"
     lastUpdated = ":date_full"
 
 [sidebar]
-    emoji    = "🍥"
-    subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    emoji    = "🛏️"
+    subtitle = "技术菜鸟"
     avatar   = "img/avatar.png"
 
 [article]
@@ -51,7 +51,22 @@ SortBy              = "default"
 ## Comments
 [comments]
     enabled  = true
-    provider = "disqus"
+    provider = "giscus"
 
     # See all the available configurations at https://github.com/CaiJimmy/hugo-theme-stack/blob/master/config/_default/params.toml
     # Copy the configurations you need from there and paste it here.
+
+    [comments.giscus]
+        repo             = "tobywangr/tobywangr.github.io"
+        repoID           = "R_kgDORW4vOg"
+        category         = "Announcements"
+        categoryID       = "DIC_kwDORW4vOs4C3DJd"
+        mapping          = "title"
+        lightTheme       = "light"
+        darkTheme        = "dark_dimmed"
+        reactionsEnabled = 1
+        emitMetadata     = 0
+        inputPosition    = "top"
+        lang             = "zh-CN"
+        strict           = 0
+        loading          = "lazy"
