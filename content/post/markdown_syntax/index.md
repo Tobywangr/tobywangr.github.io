@@ -7,7 +7,7 @@ slug: Markdown语法备忘录
 math: false
 hidden: false
 comments: true
-draft: true
+draft: false
 categories: 
     - 写作
 tags: 
