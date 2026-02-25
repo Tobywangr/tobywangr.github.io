@@ -1,6 +1,18 @@
 # Markdown renderer configuration
 [goldmark.renderer]
     unsafe = true
+[goldmark.extensions]
+    definitionList = true
+    footnote = true
+    linkify = true
+    strikethrough = true
+    table = true
+    taskList = true
+    typographer = true
+    [goldmark.extensions.extras.mark]
+        # 这一行是关键：开启后支持 ==标记==、sub 下标、sup 上标
+        enable = true
+        
 
 [goldmark.parser.attribute]
     block = true
