@@ -300,7 +300,7 @@ footnote[^1] and footnote [^2]
 
 ### 普通视频
 
-> \{\{<video src=VIDEO_URL  autoplay="true" poster="path/to/poster.png">\}\}
+> \{\{\<video src=VIDEO_URL  autoplay="true" poster="path/to/poster.png">\}\}
 
 ### 插播：引用的shortcode
 
