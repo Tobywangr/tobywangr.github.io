@@ -1,22 +1,39 @@
+{{- /* 调试信息：请在网页源码中查看此行 */ -}}
 {{- if eq .Type "alert" -}}
     {{- $type := .AlertType | lower -}}
     {{- $title := .AlertTitle | default (.AlertType | upper) -}}
-    {{- $isCollapsible := or (strings.Contains $title "[+]") (strings.Contains $title "[-]") -}}
-    {{- $isOpen := strings.Contains $title "[+]" -}}
-    {{- $cleanTitle := replace (replace $title "[+]" "") "[-]" "" -}}
+    
+    {{- /* 判定折叠：in 函数在所有 Hugo 版本都非常稳定 */ -}}
+    {{- $isCollapsible := or (in $title "[+]") (in $title "[-]") -}}
+    {{- $isOpen := in $title "[+]" -}}
+    
+    {{- /* 清理标题：使用最标准的 replace 函数 */ -}}
+    {{- $cleanTitle := $title -}}
+    {{- $cleanTitle = replace $cleanTitle "[+]" "" -}}
+    {{- $cleanTitle = replace $cleanTitle "[-]" "" -}}
+    {{- $cleanTitle = trim $cleanTitle " " -}}
 
     {{- if $isCollapsible -}}
         <details class="admonition {{ $type }}" {{ if $isOpen }}open{{ end }}>
-            <summary class="admonition-title">{{ $cleanTitle }}</summary>
-            <div class="admonition-content">{{ .Text }}</div>
+            <summary class="admonition-title">
+                {{ if $cleanTitle }}{{ $cleanTitle | safeHTML }}{{ else }}{{ $type | upper }}{{ end }}
+            </summary>
+            <div class="admonition-content">
+                {{ .Text | safeHTML }}
+            </div>
         </details>
     {{- else -}}
         <div class="admonition {{ $type }}">
-            {{/* 将 p 换成 div，并统一类名以方便 CSS 控制 */}}
-            <div class="admonition-title">{{ $cleanTitle }}</div>
-            <div class="admonition-content">{{ .Text }}</div>
+            <div class="admonition-title">
+                {{ if $cleanTitle }}{{ $cleanTitle | safeHTML }}{{ else }}{{ $type | upper }}{{ end }}
+            </div>
+            <div class="admonition-content">
+                {{ .Text | safeHTML }}
+            </div>
         </div>
     {{- end -}}
 {{- else -}}
-    <blockquote {{ with .Attributes.id }}id="{{ . }}"{{ end }}>{{ .Text }}</blockquote>
+    <blockquote {{ with .Attributes.id }}id="{{ . }}"{{ end }}>
+        {{ .Text | safeHTML }}
+    </blockquote>
 {{- end -}}
